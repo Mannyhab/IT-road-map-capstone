@@ -1,0 +1,16 @@
+.boxListContainer {
+    display: flex;
+    gap: 1rem;
+  
+    .box {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #f7f7f7;
+      }
+    }
+  }
+  
