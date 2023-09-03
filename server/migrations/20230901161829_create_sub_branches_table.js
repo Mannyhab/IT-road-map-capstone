@@ -1,11 +1,11 @@
 exports.up = function(knex) {
     return knex.schema.createTable('sub_branches', function(table) {
-        table.increments('id').primary();
-        table.integer('branch_id').unsigned().references('branches.id');
+        table.integer('id').primary();
+        table.integer('branch_id').references('branches.id');
         table.string('title').notNullable();
         table.string('desc').notNullable();
         table.string('color'); // Optional
-        table.text('detailedDesc').notNullable();
+        table.text('detail_desc').notNullable();
         table.timestamps(true, true);
     });
 };

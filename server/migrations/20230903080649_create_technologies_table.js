@@ -1,8 +1,10 @@
 exports.up = function(knex) {
     return knex.schema.createTable('technologies', function(table) {
-        table.increments('id').primary();
-        table.integer('stack_id').unsigned().references('stacks.id');
+        table.integer('id').primary(); 
         table.string('name').notNullable();
+        table.integer('stacks_id').references('stacks.stack_id'); 
+        table.text('description').notNullable(); 
+        table.string('usage_percentage').notNullable();
         table.timestamps(true, true);
     });
 };

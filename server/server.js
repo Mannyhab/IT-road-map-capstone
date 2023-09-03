@@ -16,6 +16,16 @@ app.get('/sections', async (req, res) => {
   }
 });
 
+
+app.get('/branches', async (req, res) => {
+  try {
+    const sections = await knex('branches').select();
+    res.json(sections);
+  } catch (error) {
+    res.status(500).send('Error retrieving branches.');
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });

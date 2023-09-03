@@ -112,6 +112,3 @@ const sections = [
 ];
 
 
- module.exports = {
-   sections: sections
- };
