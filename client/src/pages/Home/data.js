@@ -1,4 +1,4 @@
-const sections = [
+const boxes = [
   {
     id: 'information-technology',
     title: 'Information Technology',
@@ -26,141 +26,15 @@ const sections = [
                 id: 'frontend',
                 title: 'Frontend',
                 desc: 'Making websites visually appealing.',
-                color: '#f1c40f',
-                detailedDesc: 'Interactivity, Design, Responsiveness.',
-                stacks: [
-                  {
-                    id: 'standard-frontend',
-                    title: 'Standard Stack',
-                    desc: 'Traditional web technologies.',
-                    color: '#e67e22',
-                    detailedDesc: 'Widely adopted across the web.',
-                    usagePercentage: '70%', 
-                    technologies:[
-                      {
-                        id: 'html',
-                        title: 'HTML',
-                        desc: 'Markup language for creating web content.',
-                        icon: 'icon-html', 
-                        usagePercentage: '99%' 
-                      },
-                      {
-                        id: 'css',
-                        title: 'CSS',
-                        desc: 'Stylesheets for designing web content.',
-                        icon: 'icon-css',
-                        usagePercentage: '98%'
-                      },
-                      {
-                        id: 'js',
-                        title: 'JavaScript',
-                        desc: 'Scripting language for web interactivity.',
-                        icon: 'icon-js',
-                        usagePercentage: '95%'
-                      },{
-                        id: 'react',
-                        title: 'React',
-                        desc: 'JavaScript library for building user interfaces.',
-                        icon: 'icon-react',
-                        usagePercentage: '65%'
-                      },
-                      {
-                        id: 'vue',
-                        title: 'Vue.js',
-                        desc: 'Progressive framework for building UIs.',
-                        icon: 'icon-vue',
-                        usagePercentage: '30%'
-                      },{
-                        id: 'angular',
-                        title: 'Angular',
-                        desc: 'Platform for building mobile and desktop web applications.',
-                        icon: 'icon-angular',
-                        usagePercentage: '40%'
-                      },
-                      {
-                        id: 'sass',
-                        title: 'SASS',
-                        desc: 'Preprocessor scripting language that is interpreted or compiled into Cascading Style Sheets (CSS).',
-                        icon: 'icon-sass',
-                        usagePercentage: '45%'
-                      }
-                    ] ,"ModernFrontendTools": [
-                      {
-                        id: 'webpack',
-                        title: 'Webpack',
-                        desc: 'Module bundler.',
-                        icon: 'icon-webpack',
-                        usagePercentage: '55%'
-                      },
-                      {
-                        id: 'babel',
-                        title: 'Babel',
-                        desc: 'JavaScript compiler.',
-                        icon: 'icon-babel',
-                        usagePercentage: '53%'
-                      },
-                      {
-                        id: 'typescript',
-                        title: 'TypeScript',
-                        desc: 'Superset of JavaScript that compiles to clean JavaScript.',
-                        icon: 'icon-typescript',
-                        usagePercentage: '42%'
-                      }
-                    ]
+                color: '#27ae60',
+                detailedDesc: 'HTML, CSS, JavaScript, React, and more.',
               },
-
               {
                 id: 'backend',
                 title: 'Backend',
                 desc: 'Server-side operations and databases.',
                 color: '#8e44ad',
                 detailedDesc: 'Node, Express, Databases, and more.',
-    "NodejsStack": [
-        {
-          id: 'nodejs',
-          title: 'Node.js',
-          desc: 'JavaScript runtime built on Chromes V8 JavaScript engine.',
-          icon: 'icon-nodejs',
-          usagePercentage: '60%'
-        },
-        {
-          id: 'express',
-          title: 'Express.js',
-          desc: 'Fast, unopinionated, minimalist web framework for Node.js.',
-          icon: 'icon-express',
-          usagePercentage: '90%'
-        },
-        {
-          id: 'mongodb',
-          title: 'MongoDB',
-          desc: 'NoSQL database.',
-          icon: 'icon-mongodb',
-          usagePercentage: '55%'
-        }
-      ],
-      "PythonStack": [
-        {
-          id: 'python',
-          title: 'Python',
-          desc: 'General-purpose programming language.',
-          icon: 'icon-python',
-          usagePercentage: '58%'
-        },
-        {
-          id: 'django',
-          title: 'Django',
-          desc: 'High-level Python web framework.',
-          icon: 'icon-django',
-          usagePercentage: '35%'
-        },
-        {
-          id: 'flask',
-          title: 'Flask',
-          desc: 'Micro web framework written in Python.',
-          icon: 'icon-flask',
-          usagePercentage: '27%'
-        }
-      ]
               },
               {
                 id: 'fullstack',
@@ -168,30 +42,6 @@ const sections = [
                 desc: 'Combining frontend and backend techniques.',
                 color: '#2c3e50',
                 detailedDesc: 'MERN Stack, MEAN Stack, and more.',
-                "MERN": {
-                  id: 'mern-stack',
-                  title: 'MERN Stack',
-                  desc: 'MongoDB, Express.js, React, Node.js.',
-                  icon: 'icon-mern',
-                  usagePercentage: '45%',
-                  technologies: ['mongodb', 'express', 'react', 'nodejs']
-                },
-                "MEAN": {
-                  id: 'mean-stack',
-                  title: 'MEAN Stack',
-                  desc: 'MongoDB, Express.js, Angular, Node.js.',
-                  icon: 'icon-mean',
-                  usagePercentage: '35%',
-                  technologies: ['mongodb', 'express', 'angular', 'nodejs']
-                },
-                "DjangoReact": {
-                  id: 'django-react-stack',
-                  title: 'Django + React Stack',
-                  desc: 'Django, React.',
-                  icon: 'icon-django-react',
-                  usagePercentage: '28%',
-                  technologies: ['django', 'react']
-                }
               },
             ],
           },
@@ -352,4 +202,4 @@ const sections = [
   },
 ];
 
-export default sections;
+
