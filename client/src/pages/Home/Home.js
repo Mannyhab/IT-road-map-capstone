@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './Home.scss';
-import SectionCard from '../SectionCard/SectionCard';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Lottie from 'lottie-react';
-import NewsFeed from '../NewsFeed/NewsFeed';
+import Lottie from 'react-lottie';
+import './Home.scss';
+import rootIconAnimation from '../../assets/icons/information-technology.json';
+import SectionCard from '../../components/SectionCard/SectionCard';
 
 function Home() {
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState(null);
-  const [selectedColor, setSelectedColor] = useState('#FFFFFF'); // Default background color
+  const [selectedColor, setSelectedColor] = useState('#FFFFFF');
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/sections')
@@ -21,14 +22,18 @@ function Home() {
       });
   }, []);
 
+  const handlePageClick = () => {
+    setSelectedSection(null);
+    setSelectedColor('#FFFFFF');
+  };
+
   const handleSectionClick = (sectionId, color) => {
     setSelectedSection(sectionId);
     setSelectedColor(color);
-  };
-
-  const handlePageClick = () => {
-    setSelectedSection(null);
-    setSelectedColor('#FFFFFF'); 
+    const formattedTitle = sections.find(section => section.id === sectionId).title
+      .toLowerCase()
+      .replace(/\s+/g, '-');
+    navigate(`/${formattedTitle}`);
   };
 
   return (
@@ -46,16 +51,19 @@ function Home() {
         <p>Choose your path and explore!</p>
       </header>
 
+      <div className="root-card">
+        <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: rootIconAnimation,
+          }}
+          className="root-icon"
+        />
+        <h2 className="root-title">Information Technology</h2>
+      </div>
+
       <div className="section-cards">
-        <div className="root-card">
-          {/* Icon for Information Technology */}
-          <Lottie
-            animationData={require('../../assets/Icons/infrmation-technology.json')}
-            loop
-            autoplay
-          />
-          <h2>Information Technology</h2>
-        </div>
         {sections.map(section => (
           <SectionCard
             key={section.id}
@@ -66,8 +74,7 @@ function Home() {
           />
         ))}
       </div>
-<NewsFeed />
-      {/* ... */}
+
     </div>
   );
 }

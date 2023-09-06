@@ -87,21 +87,34 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
-import SectionBranches from './pages/SectionBranches/SectionBranches'; // Replace with the actual component path
+import BranchesPage from './pages/BranchesPage/BranchesPage';
+import SubBranchesPage from './pages/SubBranchesPage/SubBranchesPage';
+import StacksPage from './pages/StacksPage/StacksPage';
+import TechnologiesPage from './pages/TechnologiesPage/TechnologiesPage';
+import Header from './components/Header/Header';
+import NewsFeed from './pages/NewsFeed/NewsFeed';
+import './pages/BranchesPage/BranchesPage.scss';
+import './pages/Home/Home.scss';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <>
+    
+    <Router>
+    <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="sections/*" element={<SectionBranches />} />
+        <Route path="/:section" element={<BranchesPage />} />
+        <Route path="/:section/:branch" element={<SubBranchesPage />} />
+        <Route path="/:section/:branch/:subBranch" element={<StacksPage />} />
+        <Route path="/:section/:branch/:subBranch/:stack" element={<TechnologiesPage />} />
       </Routes>
-    </div>
+    <NewsFeed />
+
+    </Router>
+  </>
   );
 }
 
 export default App;
-

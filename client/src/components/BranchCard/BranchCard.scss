@@ -1,0 +1,41 @@
+.branch-card {
+    width: 250px;
+    height: 250px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+ 
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  
+    &.selected {
+      background-color: #FF5733;
+      color: #FFFFFF;
+      border-color: #FF5733;
+    }
+  
+    &.hovered {
+      background-color: #F9C32A;
+      color: #000;
+      border-color: #F9C32A;
+    }
+  
+    @media (max-width: 768px) {
+      width: 200px;
+      height: 200px;
+    }
+  
+    .branch-card-icon {
+      margin-bottom: 10px;
+    }
+  
+    .branch-card-desc {
+      margin-bottom: 10px;
+    }
+  }
+  .branches-container{
+    display: flex;
+  }
