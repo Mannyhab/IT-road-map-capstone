@@ -47,8 +47,8 @@ function NewsFeed() {
 
   const fetchNews = () => {
     const apiKey = 'd2278149b07644368c0fc850b9000276';
-    const country = 'us'; // You can change this to your desired country
-    const pageSize = 3; // Number of articles to fetch
+    const country = 'us'; 
+    const pageSize = 3; 
 
     axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${apiKey}&country=${country}&category=technology&pageSize=${pageSize}`)
       .then(response => {

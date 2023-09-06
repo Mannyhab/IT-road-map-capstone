@@ -1,27 +1,30 @@
+
 import React, { useState } from 'react';
-import './SectionCard.scss';
+import './SubBranchesCard.scss';
 import {useNavigate} from 'react-router-dom';
-import softwareDevelopmentIcon from '../../assets/images/software-development.svg';
-function SectionCard({ section }) {
-  const { id, title, desc } = section;
+function SubBranchCard({ subBranch,section }) {
+  const { id, title, detail_desc } = subBranch;
   const [isSelected, setIsSelected] = useState(false);
   const navigate = useNavigate();
+
   const handleCardClick = () => {
     setIsSelected(!isSelected);
   };
+ 
   const handleExploreClick = () => {
-   navigate(`/${title.toLowerCase().replace(/\s+/g, '-')}`);
+
+    navigate(`/${section}/${title.toLowerCase().replace(/\s+/g, '-')}/stacks`);
   };
 
   return (
     <div
-      className={`section-card ${isSelected ? 'selected' : ''}`}
+      className={`sub-branch-card ${isSelected ? 'selected' : ''}`}
       onClick={handleCardClick}
     >
       <h3>{title}</h3>
       {isSelected && (
         <div className="card-details">
-          <p>{desc}</p>
+          <p>{detail_desc}</p>
           <button onClick={handleExploreClick} className="explore-button">
             Explore More
           </button>
@@ -31,4 +34,4 @@ function SectionCard({ section }) {
   );
 }
 
-export default SectionCard;
+export default SubBranchCard;

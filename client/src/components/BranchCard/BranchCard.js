@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './BranchCard.scss';
+import { useNavigate,useParams, } from 'react-router-dom';
 
-function BranchCard({ branch, onClick, selected }) {
-  const { id, title, color } = branch;
+function BranchCard({ branch }) {
+    const { section } = useParams();
+  const { title, desc } = branch;
+  const [isSelected, setIsSelected] = useState(false);
+  const navigate = useNavigate();
 
   const handleCardClick = () => {
-    onClick(id);
+    setIsSelected(!isSelected);
+  };
+
+  const handleExploreClick = () => {
+ 
+    navigate(`/${section}/${title.toLowerCase().replace(/\s+/g, '-')}`);
   };
 
   return (
     <div
-      className={`branch-card ${selected ? 'selected' : ''}`}
-      style={{ backgroundColor: selected ? 'white' : color }}
+      className={`section-card ${isSelected ? 'selected' : ''}`}
       onClick={handleCardClick}
     >
       <h3>{title}</h3>
-      {selected ? (
-        <img
-          src={require(`../../assets/images/${title.toLowerCase().replace(/\s+/g, '-')}.svg`)}
-          alt={title}
-          className="svg-icon"
-        />
-      ) : null}
+      {isSelected && (
+        <div className="card-details">
+          <p>{desc}</p>
+          <button onClick={handleExploreClick} className="explore-button">
+            Explore More
+          </button>
+        </div>
+      )}
     </div>
   );
 }

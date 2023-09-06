@@ -1,44 +1,68 @@
+
+
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #FFFFFF;
-  transition: background-color 0.3s ease;
-}
+  padding: 4rem;
 
-.root-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #FFFFFF;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
 
-.root-icon {
-  width: 100px;
-  height: 100px;
-}
+  .section-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
-.root-title {
-  margin-top: 10px;
-  font-size: 18px;
-  text-align: center;
-}
+    .section-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 1s ease;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+      margin: 10px;
+      font-size: 18px;
 
-.section-cards {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
-}
+      &:hover {
+        transform: scale(1.05);
+      }
 
-.selected-section {
-  background-color: #FFFFFF !important;
+      &.selected {
+        background-color: #333;
+        color: white;
+      }
+
+      .card-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+
+        p {
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+
+        .explore-button {
+          border: 1px solid #333;
+          color: #333;
+          padding: 5px 10px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.2s ease, color 0.2s ease;
+        }
+      }
+    }
+  }
 }

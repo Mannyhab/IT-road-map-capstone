@@ -1,82 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Lottie from 'react-lottie';
-import './Home.scss';
-import rootIconAnimation from '../../assets/icons/information-technology.json';
+import React, { useEffect, useState } from 'react';
 import SectionCard from '../../components/SectionCard/SectionCard';
+import axios from 'axios'; // Import Axios
+import './Home.scss'; // Import the Home component styles
+
+import softwareDevelopmentIcon from '../../assets/images/software-development.svg';
+import networkingIcon from '../../assets/images/networking.svg';
+import cloudComputingIcon from '../../assets/images/cloud-computing.svg';
+import cybersecurityIcon from '../../assets/images/cyber-security.svg';
+import dataScienceIcon from '../../assets/images/data-science.svg';
+import aiRoboticsIcon from '../../assets/images/airobotics.svg';
 
 function Home() {
   const [sections, setSections] = useState([]);
-  const [selectedSection, setSelectedSection] = useState(null);
-  const [selectedColor, setSelectedColor] = useState('#FFFFFF');
-  const navigate = useNavigate();
-
+  
   useEffect(() => {
-    axios.get('http://localhost:3001/api/sections')
-      .then(response => {
-        setSections(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching sections:', error);
-      });
+    const fetchDataFromAPI = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/api/sections'); // Replace wi
+        const sectionDataFromAPI = response.data.data;
+        setSections(sectionDataFromAPI);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchDataFromAPI();
   }, []);
 
-  const handlePageClick = () => {
-    setSelectedSection(null);
-    setSelectedColor('#FFFFFF');
-  };
-
-  const handleSectionClick = (sectionId, color) => {
-    setSelectedSection(sectionId);
-    setSelectedColor(color);
-    const formattedTitle = sections.find(section => section.id === sectionId).title
-      .toLowerCase()
-      .replace(/\s+/g, '-');
-    navigate(`/${formattedTitle}`);
-  };
-
   return (
-    <div
-      className={`home-container ${selectedSection ? 'selected-section' : ''}`}
-      style={{ backgroundColor: selectedColor }}
-      onClick={handlePageClick}
-    >
-      <header>
-        <h1>Welcome to our IT Classification Website</h1>
-        <p>
-          In the vast field of Information Technology, various specializations and domains exist.
-          Our website offers a comprehensive approach to classifying and understanding these domains.
-        </p>
-        <p>Choose your path and explore!</p>
-      </header>
-
-      <div className="root-card">
-        <Lottie
-          options={{
-            loop: true,
-            autoplay: true,
-            animationData: rootIconAnimation,
-          }}
-          className="root-icon"
-        />
-        <h2 className="root-title">Information Technology</h2>
-      </div>
-
-      <div className="section-cards">
-        {sections.map(section => (
+    <div className='home-container'> 
+ <h1>Welcome to Infromation Technology Road Maps</h1>
+      <p>
+        Our platform offers a formal yet playful approach to classifying the vast world of Information Technology.
+        Explore various IT domains and discover the one that piques your curiosity.
+        Click on a category to learn more and embark on an exciting journey through the world of IT.
+        Happy exploring!
+      </p>
+      <div className='section-card-container'>
+        {sections.map((section) => (
           <SectionCard
             key={section.id}
             section={section}
-            selected={section.id === selectedSection}
-            onClick={handleSectionClick}
-            setSelectedColor={setSelectedColor}
+            icon={getIconByTitle(section.title)} 
           />
         ))}
       </div>
-
     </div>
   );
+}
+
+
+function getIconByTitle(title) {
+  switch (title.toLowerCase().replace(/\s+/g, '-')) {
+    case 'software-development':
+      return softwareDevelopmentIcon;
+    case 'networking':
+      return networkingIcon;
+    case 'cloud-computing':
+      return cloudComputingIcon;
+    case 'cybersecurity':
+      return cybersecurityIcon;
+    case 'data-science':
+      return dataScienceIcon;
+    case 'ai-&-robotics':
+      return aiRoboticsIcon;
+    default:
+      return ''; 
+  }
 }
 
 export default Home;
