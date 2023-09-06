@@ -3,7 +3,7 @@ exports.up = function(knex) {
       table.increments('id').primary();
       table.string('title').notNullable();
       table.string('desc').notNullable();
-      table.string('color').notNullable();
+
       table.string('detailedDesc', 1000).notNullable(); // increased char limit
       table.integer('parentId').unsigned().references('id').inTable('sections').nullable();
     });

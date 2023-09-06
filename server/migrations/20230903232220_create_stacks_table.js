@@ -6,7 +6,7 @@ exports.up = function(knex) {
       table.string('usage_percentage').notNullable();
       table.string('short_description').notNullable();
       table.string('long_description').notNullable();
-      table.string('color');
+
       table.string('technologies').notNullable();
       table.timestamps(true, true);
     });
