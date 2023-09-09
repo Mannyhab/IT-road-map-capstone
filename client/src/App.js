@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -7,13 +6,8 @@ import SubBranchesPage from './pages/SubBranchesPage/SubBranchesPage';
 import StacksPage from './pages/StacksPage/StacksPage';
 import TechnologiesPage from './pages/TechnologiesPage/TechnologiesPage';
 import Header from './components/Header/Header';
-import NewsFeed from './pages/NewsFeed/NewsFeed';
 
-import './pages/BranchesPage/BranchesPage.scss';
-import './pages/Home/Home.scss';
-import './components/BranchCard/BranchCard.scss';
-import './pages/SubBranchesPage/SubBranchesPage.scss';
-import './pages/StacksPage/StacksPage.scss';
+import './App.css';
 
 function App() {
   return (
@@ -26,7 +20,6 @@ function App() {
         <Route path="/:section/:branch/:subBranch" element={<StacksPage />} />
         <Route path="/:section/:branch/:subBranch/:stack" element={<TechnologiesPage />} />
       </Routes>
-      <NewsFeed />
     </Router>
   );
 }

@@ -1,34 +1,31 @@
-import React, { useState } from 'react';
-import './SectionCard.scss';
-import {useNavigate} from 'react-router-dom';
-import softwareDevelopmentIcon from '../../assets/images/software-development.svg';
-function SectionCard({ section }) {
-  const { id, title, desc } = section;
-  const [isSelected, setIsSelected] = useState(false);
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Lottie from 'react-lottie';
+import * as animationData from '../../assets/icons/information-technology.json';
+
+const SectionCard = ({ title }) => {
   const navigate = useNavigate();
+
   const handleCardClick = () => {
-    setIsSelected(!isSelected);
+    // Route to the section page
+    navigate(`/${title.toLowerCase().replace(/ /g, '-')}`);
   };
-  const handleExploreClick = () => {
-   navigate(`/${title.toLowerCase().replace(/\s+/g, '-')}`);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData.default, // Your animation JSON data
   };
 
   return (
-    <div
-      className={`section-card ${isSelected ? 'selected' : ''}`}
-      onClick={handleCardClick}
-    >
-      <h3>{title}</h3>
-      {isSelected && (
-        <div className="card-details">
-          <p>{desc}</p>
-          <button onClick={handleExploreClick} className="explore-button">
-            Explore More
-          </button>
-        </div>
-      )}
+    <div className="section-card" onClick={handleCardClick}>
+      <div className="section-root">
+        <Lottie options={defaultOptions} height={50} width={50} />
+        <div className="section-card-title">{title}</div>
+      </div>
+      <div className="section-card-title">{title}</div>
     </div>
   );
-}
+};
 
 export default SectionCard;

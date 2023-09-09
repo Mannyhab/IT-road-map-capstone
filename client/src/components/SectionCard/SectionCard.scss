@@ -1,53 +1,80 @@
+/* SectionCard.module.scss */
+
 .section-card {
+    width: 200px;
+    height: 200px;
+    perspective: 1000px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
+    margin: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 1s ease;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    text-align: center;
-  }
+    transition: transform 0.5s;
+    position: relative;
   
-  .section-card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .card-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-  
-    p {
-      font-size: 14px;
-      margin-bottom: 10px;
+    &.flipped {
+      transform: rotateY(180deg);
     }
   
-    .explore-button {
- 
-      border: 1px solid #333;
+    .card-front,
+    .card-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+      text-align: center;
+      padding: 16px;
+  
+      h3 {
+        margin-top: 16px;
+        font-size: 18px;
+      }
+  
+      p {
+        margin-top: 8px;
+        font-size: 14px;
+      }
+    }
+  
+    .card-front {
+      background-color: #fff;
       color: #333;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 22s ease, color 112s ease;
-      z-index: 4;
+    }
+  
+    .card-back {
+      background-color: #f5f5f5;
+      color: #333;
+      transform: rotateY(180deg);
+      display: none;
+      flex-direction: column;
+  
+      .explore-button {
+        margin-top: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
     }
   }
   
   .section-card:hover {
-    transform: scale(1.5);
+    transform: scale(1.05);
   }
   
-  .section-card.selected {
-    background-color: #333;
-    color: white;
-  }
+  /* Add additional styles as needed */
   

@@ -1,38 +1,46 @@
-import React, { useState } from 'react';
-import './BranchCard.scss';
-import { useNavigate,useParams, } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Lottie from 'react-lottie';
 
-function BranchCard({ branch }) {
-    const { section } = useParams();
-  const { title, desc } = branch;
-  const [isSelected, setIsSelected] = useState(false);
-  const navigate = useNavigate();
+const BranchesPage = () => {
+  const { section } = useParams();
+  const [branches, setBranches] = useState([]);
 
-  const handleCardClick = () => {
-    setIsSelected(!isSelected);
-  };
+  useEffect(() => {
+    // Fetch branches data based on the section ID
+    axios.get(`http://localhost:3001/api/branches/${section.id}`)
+      .then(response => {
+        setBranches(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching branches:', error);
+      });
+  }, [section]);
 
-  const handleExploreClick = () => {
- 
-    navigate(`/${section}/${title.toLowerCase().replace(/\s+/g, '-')}`);
+  // Define Lottie animation options for section icons
+  const sectionAnimationOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: require(`../../assets/icons/${section.title.toLowerCase().replace(/ /g, '-')}.json`), // Replace with your animation file
   };
 
   return (
-    <div
-      className={`section-card ${isSelected ? 'selected' : ''}`}
-      onClick={handleCardClick}
-    >
-      <h3>{title}</h3>
-      {isSelected && (
-        <div className="card-details">
-          <p>{desc}</p>
-          <button onClick={handleExploreClick} className="explore-button">
-            Explore More
-          </button>
-        </div>
-      )}
+    <div className="branches-page">
+      <div className="branches-icon-title">
+        <Lottie options={sectionAnimationOptions} height={100} width={100} />
+        <h1>{section.title}</h1>
+      </div>
+      <div className="branch-cards">
+        {branches.map(branch => (
+          <div key={branch.id} className="branch-card">
+            <img src={`../../assets/icons/${branch.title.toLowerCase().replace(/ /g, '-')}.json`} alt={branch.title} />
+            <div className="card-title">{branch.title}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-export default BranchCard;
+export default BranchesPage;

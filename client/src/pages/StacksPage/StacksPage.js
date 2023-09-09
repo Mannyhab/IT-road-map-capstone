@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import './StacksPage.scss'; 
 import StacksCard from '../../components/StacksCard/StacksCard';
 import '../../components/StacksCard/StacksCard.scss'
-const subBranches = [
+const stackNameToIdMap = [
     { name: 'frontend', id: 1 },
     { name: 'backend', id: 2 },
     { name: 'full-stack', id: 3 },
@@ -46,41 +46,53 @@ const subBranches = [
     { name: 'application-defense', id: 39 },
   ];
 
-  function StacksPage() {
-    const { section, branch, subBranch, stackId } = useParams();
-  
+ function StacksPage() {
+  const { stackId } = useParams();
 
-    const [stack, setStack] = useState({});
-    const [welcomeMessage, setWelcomeMessage] = useState('');
-    useEffect(() => {
+  const [stack, setStack] = useState({});
+  const [welcomeMessage, setWelcomeMessage] = useState('');
 
-        const fetchStackData = async () => {
-          try {
-            const endpoint = `http://localhost:3001/api/stacks/${stackId}`;
-            console.log('API Endpoint:', endpoint);
-            const response = await axios.get(
-              `http://localhost:3001/api/stacks/${stackId}`
-            );
-            const stackDataFromAPI = response.data.data;
-    
-            console.log(stackDataFromAPI);
-            setStack(stackDataFromAPI);
-    
-            setWelcomeMessage(`Welcome to the ${stack.title} Stack Page!`);
-          } catch (error) {
-            console.error(`Error fetching stack data for ID ${stackId}:`, error);
-          }
-        };
-    
-        fetchStackData();
-      }, [stackId]);
-  
-    return (
-      <div className="stacks-container">
-        <h1>{welcomeMessage}</h1>
-        <StacksCard key={stack.id} stack={stack} />
-      </div>
-    );
-  }
-  
-  export default StacksPage;
+  useEffect(() => {
+    // Function to map the stackId from URL to an ID from the predefined list
+    const mapStackId = () => {
+      const matchedStack = stackNameToIdMap.find(
+        (entry) => entry.name.toLowerCase() === stackId.toLowerCase()
+      );
+      return matchedStack ? matchedStack.id : null;
+    };
+
+    // Function to fetch stack data based on the mapped ID
+    const fetchStackData = async () => {
+      try {
+        const mappedStackId = mapStackId();
+        if (mappedStackId !== null) {
+          const endpoint = `http://localhost:3001/api/stacks/${mappedStackId}`;
+          console.log('API Endpoint:', endpoint);
+          const response = await axios.get(endpoint);
+          const stackDataFromAPI = response.data.data;
+
+          console.log(stackDataFromAPI);
+          setStack(stackDataFromAPI);
+
+          setWelcomeMessage(`Welcome to the ${stackDataFromAPI.title} Stack Page!`);
+        } else {
+          setWelcomeMessage(`Stack '${stackId}' not found`);
+        }
+      } catch (error) {
+        console.error(`Error fetching stack data for ID ${stackId}:`, error);
+      }
+    };
+
+    // Fetch stack data when stackId changes
+    fetchStackData();
+  }, [stackId]);
+
+  return (
+    <div className="stacks-container">
+      <h1>{welcomeMessage}</h1>
+      <StacksCard key={stack.id} stack={stack} />
+    </div>
+  );
+}
+
+export default StacksPage;

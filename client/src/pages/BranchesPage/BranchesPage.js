@@ -1,67 +1,105 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; 
-import { useParams } from 'react-router-dom'; 
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Lottie from 'react-lottie';
+
 import './BranchesPage.scss';
-import '../../components/BranchCard/BranchCard.scss';
-import BranchCard from '../../components/BranchCard/BranchCard';
 
-const sectionNameToIdMap = [
-  { name: 'software-development', id: 1 },
-  { name: 'networking', id: 4 },
-  { name: 'cloud-computing', id: 5 },
-  { name: 'data-science', id: 2 },
-  { name: 'ai-&-robotics', id: 3 },
-  { name: 'cybersecurity', id: 6 },
-];
+const BranchesPage = () => {
+  const { section: sectionProp } = useParams();
+  const [sectionId, setSectionId] = useState('');
+  const [rootTitle, setRootTitle] = useState('');
+  const [rootIcon, setRootIcon] = useState(null); // Initialize rootIcon as null
+  const [branches, setBranches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-function BranchesPage() {
-    const { section } = useParams(); 
-    const [branches, setBranches] = useState([]);
-    const [welcomeMessage, setWelcomeMessage] = useState('');
-  
-    useEffect(() => {
- 
-      const sectionId = sectionNameToIdMap.find((entry) => entry.name === section)?.id;
-  
-      if (sectionId === undefined) {
-      
-        setWelcomeMessage(`Section '${section}' not found`);
-        setBranches([]);
-        return;
-      }
- 
-      const fetchDataFromAPI = async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:3001/api/branches/${sectionId}`
-          ); 
-          const branchesDataFromAPI = response.data.data;
-          setBranches(branchesDataFromAPI);
-  
-      
-          setWelcomeMessage(`Welcome to the ${section} Branches Page!`);
-        } catch (error) {
-          console.error('Error fetching data:', error);
+  useEffect(() => {
+    const fetchSections = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/api/sections');
+        const sectionDataFromAPI = response.data.data;
+
+        // Find the matching section based on the prop
+        const matchingSection = sectionDataFromAPI.find((section) =>
+          section.title.toLowerCase().replace(/ /g, '-') === sectionProp.toLowerCase()
+        );
+
+        if (matchingSection) {
+          const sectionTitleHyphenized = matchingSection.title.toLowerCase().replace(/ /g, '-');
+          setSectionId(matchingSection.id);
+          setRootTitle(matchingSection.title);
+
+          // Dynamically import the root icon based on section title
+          import(`../../assets/icons/${sectionTitleHyphenized}.json`)
+            .then((animationData) => {
+              setRootIcon(animationData.default);
+            })
+            .catch((error) => {
+              console.error('Error loading root icon:', error);
+            });
+
+          // Fetch branches based on sectionId
+          const branchResponse = await axios.get(
+            `http://localhost:3001/api/branches/${matchingSection.id}`
+          );
+
+          const branchDataFromAPI = branchResponse.data.data;
+          setBranches(branchDataFromAPI);
         }
-      };
-  
-      fetchDataFromAPI();
-    }, [section]);
-  
-    return (
-      <div className="home-container">
-        <h1>{welcomeMessage}</h1>
-        <div className="section-card-container">
-          {branches.map((branch) => (
-            <BranchCard
-              key={branch.id}
-              branch={branch}
-              section={section}
-            />
-          ))}
-        </div>
+
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching section data:', error);
+      }
+    };
+
+    fetchSections();
+  }, [sectionProp]);
+
+  return (
+    <div className="branches-page">
+      <div className="root-section">
+        {rootIcon !== null && ( // Check if rootIcon is not null before rendering
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: rootIcon, // Use the dynamically imported root icon
+              rendererSettings: {
+                preserveAspectRatio: 'xMidYMid slice',
+              },
+            }}
+            height={150}
+            width={150}
+          />
+        )}
+        <h1>{rootTitle}</h1>
       </div>
-    );
-  }
-  
-  export default BranchesPage;
+      <div className="branches">
+        {loading ? (
+          <p>Loading branches...</p>
+        ) : (
+          branches.map((branch) => (
+            <div key={branch.id} className="branch-card">
+              <Lottie
+                options={{
+                  loop: true,
+                  autoplay: true,
+                  animationData: require(`../../assets/icons/${branch.title.toLowerCase().replace(/ /g, '-')}.json`),
+                  rendererSettings: {
+                    preserveAspectRatio: 'xMidYMid slice',
+                  },
+                }}
+                height={150}
+                width={150}
+              />
+              <div className="card-title">{branch.title}</div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default BranchesPage;

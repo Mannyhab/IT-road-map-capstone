@@ -1,72 +1,95 @@
 import React, { useEffect, useState } from 'react';
-import SectionCard from '../../components/SectionCard/SectionCard';
-import axios from 'axios'; // Import Axios
-import './Home.scss'; // Import the Home component styles
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Lottie from 'react-lottie'; // Import Lottie
+import '../../styles/home-branch.scss';
+import './Home.scss';
 
-import softwareDevelopmentIcon from '../../assets/images/software-development.svg';
-import networkingIcon from '../../assets/images/networking.svg';
-import cloudComputingIcon from '../../assets/images/cloud-computing.svg';
-import cybersecurityIcon from '../../assets/images/cyber-security.svg';
-import dataScienceIcon from '../../assets/images/data-science.svg';
-import aiRoboticsIcon from '../../assets/images/airobotics.svg';
-
-function Home() {
+const Home = () => {
   const [sections, setSections] = useState([]);
-  
+  const [sectionAnimations, setSectionAnimations] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [selectedSection, setSelectedSection] = useState(null);
   useEffect(() => {
-    const fetchDataFromAPI = async () => {
+    // Fetch section data via Axios
+    const fetchSections = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/sections'); // Replace wi
+        const response = await axios.get('http://localhost:3001/api/sections');
         const sectionDataFromAPI = response.data.data;
         setSections(sectionDataFromAPI);
+
+        // Load animation data for each section
+        const animations = {};
+        for (const section of sectionDataFromAPI) {
+          import(`../../assets/icons/${section.title.toLowerCase().replace(/ /g, '-')}.json`)
+            .then((animationData) => {
+              animations[section.title] = animationData.default;
+              setSectionAnimations({ ...animations }); // Update the animations object
+            })
+            .catch((error) => {
+              console.error('Error loading animation:', error);
+            });
+        }
+        setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching section data:', error);
       }
     };
 
-    fetchDataFromAPI();
+    fetchSections();
   }, []);
+  const handleCardClick = (sectionTitle) => {
+    setSelectedSection(sectionTitle); // Store the selected section title in state
+  };
 
   return (
-    <div className='home-container'> 
- <h1>Welcome to Infromation Technology Road Maps</h1>
-      <p>
-        Our platform offers a formal yet playful approach to classifying the vast world of Information Technology.
-        Explore various IT domains and discover the one that piques your curiosity.
-        Click on a category to learn more and embark on an exciting journey through the world of IT.
-        Happy exploring!
-      </p>
-      <div className='section-card-container'>
-        {sections.map((section) => (
-          <SectionCard
-            key={section.id}
-            section={section}
-            icon={getIconByTitle(section.title)} 
-          />
-        ))}
+    <div className="home">
+      <div className="home-icon-title">
+        {/* Display a default Lottie animation */}
+        <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: require('../../assets/icons/information-technology.json'), // Default animation
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice',
+            },
+          }}
+          height={150}
+          width={150}
+        />
+        <h1>Information Technology</h1>
+      </div>
+      <div className="section-cards">
+        {loading ? (
+          <p>Loading sections...</p>
+        ) : (
+          sections.map((section) => (
+            <Link key={section.id} to={`/${section.title.toLowerCase().replace(/ /g, '-')}`}>
+              <div className="section-card" onClick={() => handleCardClick(section.title)}>
+                {/* Check if the animation data for the section is available */}
+                {sectionAnimations[section.title] ? (
+                  <Lottie
+                    options={{
+                      loop: true,
+                      autoplay: true,
+                      animationData: sectionAnimations[section.title], // Load animation data for the section
+                      rendererSettings: {
+                        preserveAspectRatio: 'xMidYMid slice',
+                      },
+                    }}
+                    height={150}
+                    width={150}
+                  />
+                ) : null}
+                <div className="card-title">{section.title}</div>
+              </div>
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );
-}
-
-
-function getIconByTitle(title) {
-  switch (title.toLowerCase().replace(/\s+/g, '-')) {
-    case 'software-development':
-      return softwareDevelopmentIcon;
-    case 'networking':
-      return networkingIcon;
-    case 'cloud-computing':
-      return cloudComputingIcon;
-    case 'cybersecurity':
-      return cybersecurityIcon;
-    case 'data-science':
-      return dataScienceIcon;
-    case 'ai-&-robotics':
-      return aiRoboticsIcon;
-    default:
-      return ''; 
-  }
-}
+};
 
 export default Home;

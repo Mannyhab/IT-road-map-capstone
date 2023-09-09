@@ -20,7 +20,7 @@ function Header() {
             <Link to="/data-science">Data Science</Link>
           </li>
           <li className={currentPath.startsWith('/ai-&-robotics') ? 'active' : ''}>
-            <Link to="/ai-&-robotics">AI & Robotics</Link>
+            <Link to="/ai-and-robotics">AI & Robotics</Link>
           </li>
           <li className={currentPath.startsWith('/networking') ? 'active' : ''}>
             <Link to="/networking">Networking</Link>
