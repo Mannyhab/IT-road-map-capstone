@@ -22,20 +22,21 @@ exports.seed = async function(knex) {
       
         detailedDesc: 'Mobile development refers to creating applications and any other kind of software development specific to mobile devices.'
     },
+   
     {   id: 3,
-        section_id: 1,
-        title: 'Game Development',
-        desc: 'Creating video games.',
-       
-        detailedDesc: 'Game development involves creating interactive content, including video games.'
-    },
-    {   id: 4,
         section_id: 1,
         title: 'Desktop Development',
         desc: 'Software designed to run on a desktop computer.',
       
         detailedDesc: 'Desktop development is about creating applications that run stand-alone on a desktop or laptop computer.'
     },
+    {   id: 4,
+      section_id: 1,
+      title: 'Game Development',
+      desc: 'Creating video games.',
+     
+      detailedDesc: 'Game development involves creating interactive content, including video games.'
+  },
     {   id: 5,
         section_id:1,
         title: 'Embedded Systems',

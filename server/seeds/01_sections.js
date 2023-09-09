@@ -21,7 +21,7 @@ exports.seed = async function(knex) {
     },
     {
       id: 3,
-      title: 'AI & Robotics', 
+      title: 'AI and Robotics', 
       desc: 'The interdisciplinary branch of science and engineering dedicated to creating machines that act and behave like humans.',
       detailedDesc: 'AI & Robotics includes the design, construction, operation, and use of robots to perform tasks done traditionally by human beings.'
     },
