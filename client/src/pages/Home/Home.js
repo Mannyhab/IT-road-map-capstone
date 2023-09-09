@@ -82,7 +82,7 @@ const Home = () => {
                     width={150}
                   />
                 ) : null}
-                <div className="card-title">{section.title}</div>
+                <div className="card-title text-decoration">{section.title}</div>
               </div>
             </Link>
           ))

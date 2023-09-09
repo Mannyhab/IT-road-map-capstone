@@ -1,68 +1,62 @@
-
-.home-container {
+.sub-branches-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem;
-  
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-  
-    .section-card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-  
-      .section-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 200px;
-        height: 200px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: transform 0.2s ease, background-color 1s ease;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        padding: 20px;
-        text-align: center;
-        margin: 10px;
-        font-size: 18px;
-  
-        &:hover {
-          transform: scale(1.05);
-        }
-  
-        &.selected {
-          background-color: #333;
-          color: white;
-        }
-  
-        .card-details {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 10px;
-  
-          p {
-            font-size: 14px;
-            margin-bottom: 10px;
-          }
-  
-          .explore-button {
-            border: 1px solid #333;
-            color: #333;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease;
-          }
-        }
-      }
-    }
+    padding: 20px;
   }
   
+  .branch-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .branch-title h1 {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  
+  .sub-branches {
+    display: flex;
+    flex-direction: column; /* Display sub-branches below the root branch */
+    align-items: center;
+  }
+  
+  .root-branch {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .root-branch h2 {
+    font-size: 20px;
+  }
+  
+  .root-branch p {
+    font-size: 16px;
+  }
+  
+  .root-branch .lottie-container {
+    margin-top: 20px;
+  }
+  
+  .sub-branch-card {
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sub-branch-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-title {
+    font-size: 18px;
+    margin-top: 10px;
+    text-decoration: none;
+  }
+  .sub-branch-container{
+    display: flex;
+  }

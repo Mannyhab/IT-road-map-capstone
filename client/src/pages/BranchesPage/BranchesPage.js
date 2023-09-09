@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
 
 import './BranchesPage.scss';
@@ -79,27 +79,30 @@ const BranchesPage = () => {
         {loading ? (
           <p>Loading branches...</p>
         ) : (
-          branches.map((branch) => (
-            <div key={branch.id} className="branch-card">
-              <Lottie
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: require(`../../assets/icons/${branch.title.toLowerCase().replace(/ /g, '-')}.json`),
-                  rendererSettings: {
-                    preserveAspectRatio: 'xMidYMid slice',
-                  },
-                }}
-                height={150}
-                width={150}
-              />
-              <div className="card-title">{branch.title}</div>
-            </div>
-          ))
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default BranchesPage;
+            branches.map((branch) => (
+                <Link to={`/${sectionProp.toLowerCase().replace(/ /g, '-')}/${branch.title.toLowerCase().replace(/ /g, '-')}`} key={branch.id}>
+                  {/* Add Link component to route to sub-branches page */}
+                  <div className="branch-card">
+                    <Lottie
+                      options={{
+                        loop: true,
+                        autoplay: true,
+                        animationData: require(`../../assets/icons/${branch.title.toLowerCase().replace(/ /g, '-')}.json`),
+                        rendererSettings: {
+                          preserveAspectRatio: 'xMidYMid slice',
+                        },
+                      }}
+                      height={150}
+                      width={150}
+                    />
+                    <div className="card-title">{branch.title}</div>
+                  </div>
+                </Link>
+              ))
+            )}
+          </div>
+        </div>
+      );
+    };
+    
+    export default BranchesPage;
