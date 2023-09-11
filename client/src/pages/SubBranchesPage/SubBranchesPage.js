@@ -50,15 +50,13 @@ const SubBranchesPage = () => {
 
   return (
     <div className="sub-branches-page">
-      <div className="branch-title">
-        <h1>{branchTitle}</h1>
-      </div>
+   
       <div className="sub-branches">
         {rootBranch && (
           <div className="root-branch">
             {/* Display root branch information here */}
-            <h2>Root Branch</h2>
-            <p>{rootBranch.title}</p>
+         
+        
             {/* Add code to display root branch icon here */}
             <Lottie
               options={{
@@ -72,6 +70,9 @@ const SubBranchesPage = () => {
               height={150}
               width={150}
             />
+               <div className="branch-title">
+        <h1>{branchTitle}</h1>
+      </div>
           </div>
         )}
         <div className='sub-branch-container'>

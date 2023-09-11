@@ -8,6 +8,7 @@ import TechnologiesPage from './pages/TechnologiesPage/TechnologiesPage';
 import Header from './components/Header/Header';
 
 import './App.css';
+import NewsFeed from './pages/NewsFeed/NewsFeed';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/:section/:branch/:subBranch" element={<StacksPage />} />
         <Route path="/:section/:branch/:subBranch/:stack" element={<TechnologiesPage />} />
       </Routes>
+      <NewsFeed/>
     </Router>
   );
 }

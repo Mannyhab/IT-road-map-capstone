@@ -62,7 +62,7 @@ const Home = () => {
       </div>
       <div className="section-cards">
         {loading ? (
-          <p>Loading sections...</p>
+          <p>Lnot aldkfjadflak fjdlkfjsda;fl</p>
         ) : (
           sections.map((section) => (
             <Link key={section.id} to={`/${section.title.toLowerCase().replace(/ /g, '-')}`}>
